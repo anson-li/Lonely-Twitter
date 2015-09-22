@@ -19,12 +19,7 @@
 
     </ListView>
 
-    <TextView
-        android:id="@+id/hello"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hello" />
-    
+
     <EditText
         android:id="@+id/body"
         android:layout_width="fill_parent"
@@ -32,21 +27,9 @@
         android:scrollbars="horizontal" />
 
     <Button
-        android:id="@+id/clear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/clear" />
-
-    <Button
-        android:id="@+id/save"
+        android:id="@+id/edit"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/save" />
+        android:text="@string/edit" />
 
-    <Button
-        android:id="@+id/view"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/view" />
-
-</LinearLayout>
+</LinearLayout><!-- From: file:/Users/ansonli/Desktop/School/Year4/LonelyTwitterLab2/app/src/main/res/layout/activity_view.xml -->

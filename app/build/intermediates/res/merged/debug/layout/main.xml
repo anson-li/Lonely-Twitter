@@ -43,4 +43,10 @@
         android:layout_height="wrap_content"
         android:text="@string/save" />
 
+    <Button
+        android:id="@+id/view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/view" />
+
 </LinearLayout><!-- From: file:/Users/ansonli/Desktop/School/Year4/LonelyTwitterLab2/app/src/main/res/layout/main.xml -->
