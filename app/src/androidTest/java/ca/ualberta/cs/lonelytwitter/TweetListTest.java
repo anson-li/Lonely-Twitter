@@ -34,12 +34,19 @@ public class TweetListTest extends ActivityInstrumentationTestCase2 {
         list.add(new NormalTweet("rest"));
         list.add(new NormalTweet("mest"));
         int test = list.getcount();
+        assertEquals(3, test);
     }
 
     public void testDuplicate() {
-        TweetList list = new TweetList();
-        list.add(new NormalTweet("test"));
-        list.add(new NormalTweet("test"));
+        try {
+            TweetList list = new TweetList();
+            list.add(new NormalTweet("test"));
+            list.add(new NormalTweet("test"));
+            fail( "Missing exception" );
+        } catch( IllegalArgumentException e ) {
+            assertEquals( "You tried adding a duplicate tweet...", e.getMessage() ); // Optionally make sure you get the correct message, too
+        }
+
     }
 
     public void testgetTweets() {
@@ -48,6 +55,7 @@ public class TweetListTest extends ActivityInstrumentationTestCase2 {
         list.add(new NormalTweet("mest"));
         list.add(new NormalTweet("lest"));
         tweets = list.gettweets();
+        assertNotNull(tweets);
     }
 
 }
