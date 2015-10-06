@@ -9,11 +9,25 @@ import java.util.ArrayList;
 /**
  * Created by ansonli on 2015-09-28.
  */
-public class TweetListTest extends ActivityInstrumentationTestCase2 {
+public class TweetListTest extends ActivityInstrumentationTestCase2 implements MyObserver{
+
+
 
     public TweetListTest() {
         super(ca.ualberta.cs.lonelytwitter.LonelyTwitterActivityTest.class);
     }
+
+    private Boolean wasNotified = Boolean.FALSE;
+
+    public void testAddObserver() {
+        TweetList list = new TweetList();
+        list.addObserver(this);
+        wasNotified = Boolean.FALSE;
+        list.add(new NormalTweet("test"));
+        assertTrue(wasNotified);
+    }
+
+
 
     public void testAddTweet() {
         TweetList list = new TweetList();
@@ -58,4 +72,17 @@ public class TweetListTest extends ActivityInstrumentationTestCase2 {
         assertNotNull(tweets);
     }
 
+    public void myNotify(Object observable) {
+        wasNotified = Boolean.TRUE;
+    }
+
+    public void testTweetObserver() {
+        TweetList list = new TweetList();
+        list.addObserver(this);
+        Tweet tweet = new NormalTweet("test");
+        list.add(tweet);
+        wasNotified = Boolean.FALSE;
+        tweet.setText("different");
+        assertTrue(wasNotified);
+    }
 }

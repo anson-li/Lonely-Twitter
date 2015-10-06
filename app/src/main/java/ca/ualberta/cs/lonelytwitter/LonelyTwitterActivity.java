@@ -29,98 +29,102 @@ import com.google.gson.reflect.TypeToken;
 
 public class LonelyTwitterActivity extends Activity {
 
-	ArrayList<Tweet> tweets;
-	ArrayAdapter<Tweet> adapter;
- 	private static final String FILENAME = "file.sav";
-	private EditText bodyText;
-	private ListView oldTweetsList;
+	ArrayList<Tweet> tweets; // model
+	ArrayAdapter<Tweet> adapter; // view
+ 	private static final String FILENAME = "file.sav"; // model
+	private EditText bodyText; // view
+	private ListView oldTweetsList; // view
 
 
 	/** Called when the activity is first created. */
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) { // view
 
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+		super.onCreate(savedInstanceState);  // view
+		setContentView(R.layout.main); // view
 
-		bodyText = (EditText) findViewById(R.id.body);
-		Button saveButton = (Button) findViewById(R.id.save);
-		oldTweetsList = (ListView) findViewById(R.id.oldTweetsList);
+		bodyText = (EditText) findViewById(R.id.body); // view
+		Button saveButton = (Button) findViewById(R.id.save); // view
+		oldTweetsList = (ListView) findViewById(R.id.oldTweetsList); // view
 
 		saveButton.setOnClickListener(new View.OnClickListener() {
 
-			public void onClick(View v) {
-				setResult(RESULT_OK);
-				String text = bodyText.getText().toString();
-				tweets.add(new NormalTweet(text));
-				saveInFile();
-				bodyText.setText("");
-				adapter.notifyDataSetChanged();
+			public void onClick(View v) { // controller
+				setResult(RESULT_OK); // controller
+				String text = bodyText.getText().toString(); // view
+				tweets.add(new NormalTweet(text)); // model
+				saveInFile(); // model
+				bodyText.setText(""); // controller
+				adapter.notifyDataSetChanged(); // view
 			}
 		});
 
-		Button clearButton = (Button) findViewById(R.id.clear);
+		Button clearButton = (Button) findViewById(R.id.clear); // view
 		clearButton.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
+			public void onClick(View v) { //controller
 				//bodyText = (EditText) findViewById(R.id.body);
-				bodyText.setText("");
+				bodyText.setText(""); //controller
 			}
 		});
 
-		Button viewButton = (Button) findViewById(R.id.view);
-		viewButton.setOnClickListener(new android.view.View.OnClickListener() {
-			public void onClick(android.view.View v) {
-				Intent myIntent = new Intent(v.getContext(), ViewActivity.class);
-				startActivity(myIntent);
+		Button viewButton = (Button) findViewById(R.id.view); //view
+		viewButton.setOnClickListener(new android.view.View.OnClickListener() { //controller
+			public void onClick(android.view.View v) { // controller
+				Intent myIntent = new Intent(v.getContext(), ViewActivity.class); //controller
+				startActivity(myIntent); //controller
 			}
 		});
 
 	}
 
 	@Override
-	protected void onStart() {
+	protected void onStart() { //view
 		// TODO Auto-generated method stub
-		super.onStart();
-		loadFromFile();
+		super.onStart(); //view
+		loadFromFile(); //model
 		adapter = new ArrayAdapter<Tweet>(this,
-				R.layout.list_item, tweets);
-		oldTweetsList.setAdapter(adapter);
+				R.layout.list_item, tweets); // controller
+		oldTweetsList.setAdapter(adapter); // controller
 	}
 
-	private void loadFromFile() {
+	private void loadFromFile() { // model
 		try {
 
 			// code taken from https://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs/com/google/gson/Gson.html
 
-			FileInputStream fis = openFileInput(FILENAME);
-			BufferedReader in = new BufferedReader(new InputStreamReader(fis));
-			Gson gson = new Gson();
-			Type listType = new TypeToken<ArrayList<NormalTweet>>() {}.getType();
-			tweets = gson.fromJson(in, listType);
+			FileInputStream fis = openFileInput(FILENAME); //model
+			BufferedReader in = new BufferedReader(new InputStreamReader(fis)); //model
+			Gson gson = new Gson(); // model
+			Type listType = new TypeToken<ArrayList<NormalTweet>>() {}.getType(); //model
+			tweets = gson.fromJson(in, listType); //model
 
-		} catch (FileNotFoundException e) {
+		} catch (FileNotFoundException e) { //model
 			// TODO Auto-generated catch block
-			tweets = new ArrayList<Tweet>();
-		} catch (IOException e) {
+			tweets = new ArrayList<Tweet>(); //model
+		} catch (IOException e) { //model
 			// TODO Auto-generated catch block
-			throw new RuntimeException();
+			throw new RuntimeException(); //model
 		}
 	}
 	
-	private void saveInFile() {
+	private void saveInFile() { //model
 		try {
-			FileOutputStream fos = openFileOutput(FILENAME, 0);
-			OutputStreamWriter writer = new OutputStreamWriter(fos);
-			Gson gson = new Gson();
-			gson.toJson(tweets, writer);
-			writer.flush();
-			fos.close();
+			FileOutputStream fos = openFileOutput(FILENAME, 0); //model
+			OutputStreamWriter writer = new OutputStreamWriter(fos); //model
+			Gson gson = new Gson(); //model
+			gson.toJson(tweets, writer); //model
+			writer.flush(); //model
+			fos.close(); //model
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.printStackTrace(); //model
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.printStackTrace(); //model
 		}
+	}
+
+	public void myNotify(MyObservable observable) { //controller
+		adapter.notify(); //controller
 	}
 }

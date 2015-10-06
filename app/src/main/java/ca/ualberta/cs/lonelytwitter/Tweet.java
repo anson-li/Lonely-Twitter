@@ -1,6 +1,7 @@
 package ca.ualberta.cs.lonelytwitter;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -46,5 +47,10 @@ public abstract class Tweet extends Object implements Tweetable {
     }
 
     public abstract Boolean isImportant();
+
+    private volatile ArrayList<MyObserver> observers = new ArrayList<MyObserver>();
+    public void addObserver(MyObserver observer) {
+        observers.add(observer);
+    }
 
 }
