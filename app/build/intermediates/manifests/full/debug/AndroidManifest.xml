@@ -30,6 +30,10 @@
             android:name="ca.ualberta.cs.lonelytwitter.ViewActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="View Tweets" />
+        <activity android:name="ca.ualberta.cs.lonelytwitter.emptytweetactivity" >
+        </activity>
+        <activity android:name="ca.ualberta.cs.lonelytwitter.EditTweetActivity" >
+        </activity>
     </application>
 
 </manifest>

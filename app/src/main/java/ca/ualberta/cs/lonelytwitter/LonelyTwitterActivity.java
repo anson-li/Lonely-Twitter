@@ -18,6 +18,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,12 +30,35 @@ import com.google.gson.reflect.TypeToken;
 
 public class LonelyTwitterActivity extends Activity {
 
+
+
 	ArrayList<Tweet> tweets; // model
 	ArrayAdapter<Tweet> adapter; // view
  	private static final String FILENAME = "file.sav"; // model
+
+	public EditText getBodyText() {
+		return bodyText;
+	}
+
 	private EditText bodyText; // view
+
 	private ListView oldTweetsList; // view
 
+	public ListView getOldTweetsList() {
+		return oldTweetsList;
+	}
+
+
+
+	public Button getSaveButton() {
+		return saveButton;
+	}
+
+	public ArrayList<Tweet> getTweets() {
+		return tweets;
+	}
+
+	private Button saveButton;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -43,9 +67,19 @@ public class LonelyTwitterActivity extends Activity {
 		super.onCreate(savedInstanceState);  // view
 		setContentView(R.layout.main); // view
 
+		final LonelyTwitterActivity activity = this;
 		bodyText = (EditText) findViewById(R.id.body); // view
-		Button saveButton = (Button) findViewById(R.id.save); // view
+		saveButton = (Button) findViewById(R.id.save); // view
+
+
 		oldTweetsList = (ListView) findViewById(R.id.oldTweetsList); // view
+
+		oldTweetsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Intent intent = new Intent(activity, EditTweetActivity.class);
+				startActivity(intent);
+			}
+		});
 
 		saveButton.setOnClickListener(new View.OnClickListener() {
 

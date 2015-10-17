@@ -28,6 +28,8 @@
             android:name=".ViewActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="View Tweets" />
+        <activity android:name=".EditTweetActivity" >
+        </activity>
     </application>
 
 </manifest>
